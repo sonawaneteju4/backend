@@ -1,0 +1,51 @@
+[
+   { 
+        "_id" : 1 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Swift" ,
+        "type" : "Hatchback"
+
+    },
+   { 
+        "_id" : 1 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Swift Dizare" ,
+        "type" : "Sedan"
+
+    },
+   { 
+        "_id" : 4 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Ciaz" ,
+        "type" : "Sedan"
+
+    },
+   { 
+        "_id" : 5 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Alto" ,
+        "type" : "Hatchback"
+
+    },
+   { 
+        "_id" : 6 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Baleno 2015+" ,
+        "type" : "Hatchback"
+
+    },
+   { 
+        "_id" : 7 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "Baleno" ,
+        "type" : "Sedan"
+
+    },
+   { 
+        "_id" : 8 ,
+        "brand" : "Maruti Suzuki",
+        "subBrand" : "swift" ,
+        "type" : "hatchback"
+
+    }
+]
