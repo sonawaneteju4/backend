@@ -15,5 +15,6 @@ const connectToMongo = () =>{
         console.log(" Err ");
       });
 }
+mongoose.set('strictQuery', true);
 
 module.exports = connectToMongo ;
