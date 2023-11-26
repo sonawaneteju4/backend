@@ -10,7 +10,6 @@ const resend = new Resend("re_CxePWGSD_MPtnpwTs8vfedhkAurVd5mFC");
 router.post("/placeorder", featchuser, async (req, res) => {
   try {
     const userId = req.user.id;
-
     const { cartId, userAddress } = req.body;
 
     // Find the user's cart
@@ -48,21 +47,7 @@ router.post("/placeorder", featchuser, async (req, res) => {
     });
 
     await order.save();
-    console.log(userEmail);
-    // try {
-    //   await resend.emails.send({
-    //     from: "Acme <onboarding@resend.dev>",
-    //     to: "sonawaneteju4@gmail.com",
-    //     name : "Tejas",
-    //     subject: "hello world",
-    //     message: "<strong>it works!</strong>",
-    //   });
-    //   res
-    //   .status(200)
-    //   .json({ message: "Order placed successfully and email sent." });
-    // } catch (error) {
-    //   console.error("Error sending email:", error);
-    // }
+    
 
     res.json(order);
     await Cart.findByIdAndDelete(cartId);
@@ -105,5 +90,55 @@ router.get("/orderhistory", featchuser, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// Total Earning
+
+router.get("/totalearning", async (req, res) => {
+  try {
+    const totalEarnings = await Order.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalEarnings: { $sum: "$total" }
+        }
+      }
+    ]);
+
+    if (totalEarnings.length === 0) {
+      return res.json({ totalEarnings: 0 }); // If no orders found, return total earnings as 0
+    }
+
+    res.json(totalEarnings[0]); // Return the sum of total earnings from aggregation
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// ...
+
+router.get("/pendingorderscount", async (req, res) => {
+  try {
+    const pendingOrdersCount = await Order.aggregate([
+      {
+        $match: { status: "pending" }
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    if (pendingOrdersCount.length === 0) {
+      return res.json({ count: 0 }); // If no pending orders found, return count as 0
+    }
+
+    res.json(pendingOrdersCount[0]); // Return the count of pending orders from aggregation
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 module.exports = router;

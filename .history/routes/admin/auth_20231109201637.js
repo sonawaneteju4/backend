@@ -67,8 +67,7 @@ router.post(
   }
 );
 
-//Admin LogIn
-  
+
 router.post(
     "/loginAdmin",
     [
@@ -119,7 +118,7 @@ router.post(
   router.post( "/getAdmin", fetchAdmin ,async (req, res) => {
     try {
       const AdminId = req.user.id;
-      const admin = await Admin.findById(AdminId).select("-password");
+      const admin = await Admin.findById(userId).select("-password");
       res.send(admin)
     } catch (error) {
       console.error(error.message);

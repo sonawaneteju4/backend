@@ -10,7 +10,7 @@ router.get("/fetchcontactus", async (req, res)=>{
     const contactUs = await ContactUs.find().sort({ $natural: -1 });
     res.json(contactUs);
     console.log(contactUs)
-  } catch (error) {
+  } catch (error){
     console.error(error.message);
     res.status(500).send("some Error Occured");
   }

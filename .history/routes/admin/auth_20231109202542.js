@@ -67,8 +67,7 @@ router.post(
   }
 );
 
-//Admin LogIn
-  
+
 router.post(
     "/loginAdmin",
     [

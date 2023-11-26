@@ -8,8 +8,7 @@ var fetchuser = require("../../middleware/client/fetchuser");
 
 const JWT_SECRET = process.env.PWD_JWT;
 
-// Create a User Using: Post "/api/auth/createuser" . Doesn't Req  Login
-
+// Create a User Using: Post "/api/auth/createuser" . 
 router.post(
   "/createuser",
   [
@@ -26,7 +25,6 @@ router.post(
       return res.status(400).json({success, errors: errors.array() });
     }
     //Check With same Email exist
-
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
@@ -34,6 +32,7 @@ router.post(
           .status(400)
           .json({success, errors: "Sorry a User with this email already Exist" });
       }
+      
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
 
@@ -125,5 +124,17 @@ router.post( "/getuser", fetchuser ,async (req, res) => {
     }
   }
 );
+
+//Count USer For Admin
+
+router.get("/countusers", async (req, res) => {
+  try {
+    const userCount = await User.countDocuments();
+    res.json({ userCount });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;
